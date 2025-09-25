@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Requirements to Advance the State of the Art</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            min-height: 100vh;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .section-number {
+            font-size: 5rem;
+            font-weight: bold;
+            color: rgba(255,255,255,0.2);
+            margin-bottom: 10px;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .section-subtitle {
+            font-size: 1.3rem;
+            color: rgba(255,255,255,0.9);
+            font-style: italic;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.5;
+        }
+
+        .main-content {
+            background: rgba(255,255,255,0.95);
+            border-radius: 25px;
+            padding: 50px;
+            margin: 40px 0;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+            animation: slideInUp 1s ease-out 0.3s both;
+        }
+
+        .intro-text {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: #4a5568;
+            text-align: justify;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+            border-radius: 15px;
+            border-left: 5px solid #667eea;
+            position: relative;
+        }
+
+        .intro-text::before {
+            content: '💡';
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 2rem;
+            opacity: 0.3;
+        }
+
+        .requirements-framework {
+            margin: 50px 0;
+        }
+
+        .framework-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #2d3748;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .framework-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
+            border-radius: 2px;
+        }
+
+        .validity-pyramid {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 60px 0;
+            position: relative;
+        }
+
+        .pyramid-level {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 25px;
+            margin: 10px 0;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pyramid-level:nth-child(1) {
+            width: 90%;
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+        }
+
+        .pyramid-level:nth-child(2) {
+            width: 70%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        .pyramid-level:nth-child(3) {
+            width: 50%;
+            background: linear-gradient(135deg, #4ecdc4, #44a08d);
+        }
+
+        .pyramid-level::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.6s;
+        }
+
+        .pyramid-level:hover::before {
+            left: 100%;
+        }
+
+        .pyramid-level:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+
+        .level-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .level-description {
+            font-size: 1.1rem;
+            opacity: 0.95;
+            line-height: 1.6;
+        }
+
+        .comparison-section {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin: 50px 0;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+
+        .comparison-title {
+            text-align: center;
+            font-size: 2.2rem;
+            color: #2d3748;
+            margin-bottom: 40px;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin: 40px 0;
+        }
+
+        .comparison-card {
+            padding: 30px;
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .historical-card {
+            background: linear-gradient(135deg, #ff9a9e, #fecfef);
+            border: 3px solid #ff6b6b;
+        }
+
+        .modern-card {
+            background: linear-gradient(135deg, #a8edea, #fed6e3);
+            border: 3px solid #4ecdc4;
+        }
+
+        .comparison-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .card-era {
+            font-size: 1.1rem;
+            font-weight: bold;
+            opacity: 0.8;
+            margin-bottom: 10px;
+        }
+
+        .card-title {
+            font-size: 1.6rem;
+            font-weight: bold;
+            color: #2d3748;
+            margin-bottom: 20px;
+        }
+
+        .card-features {
+            list-style: none;
+            padding: 0;
+        }
+
+        .card-features li {
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.3);
+            font-size: 1rem;
+            color: #4a5568;
+        }
+
+        .card-features li:last-child {
+            border-bottom: none;
+        }
+
+        .challenges-section {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 50px;
+            margin: 50px 0;
+            color: white;
+        }
+
+        .challenges-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            color: white;
+        }
+
+        .challenges-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .challenge-card {
+            background: rgba(255,255,255,0.15);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .challenge-card:hover {
+            background: rgba(255,255,255,0.25);
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+
+        .challenge-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .challenge-title {
+            font-size: 1.4rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .challenge-description {
+            font-size: 1rem;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+
+        .key-questions {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin: 50px 0;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+
+        .questions-title {
+            text-align: center;
+            font-size: 2.2rem;
+            color: #2d3748;
+            margin-bottom: 40px;
+        }
+
+        .question-item {
+            background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            border-left: 5px solid #667eea;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .question-item:hover {
+            background: linear-gradient(135deg, #e2e8f0, #cbd5e0);
+            transform: translateX(10px);
+        }
+
+        .question-text {
+            font-size: 1.2rem;
+            color: #2d3748;
+            font-weight: 500;
+            line-height: 1.6;
+        }
+
+        .question-context {
+            font-size: 1rem;
+            color: #4a5568;
+            margin-top: 10px;
+            opacity: 0.8;
+        }
+
+        .progress-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(255,255,255,0.2);
+            z-index: 1000;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .interactive-summary {
+            text-align: center;
+            margin: 60px 0;
+            padding: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            color: white;
+        }
+
+        .summary-title {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(102,126,234,0.4);
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .comparison-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .challenges-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .pyramid-level {
+                width: 95% !important;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-indicator">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <div class="container">
+        <div class="section-header">
+            <div class="section-number">2</div>
+            <h1 class="section-title">REQUIREMENTS TO ADVANCE THE STATE OF THE ART</h1>
+            <p class="section-subtitle">
+                This section outlines the steps required to make valid and useful contributions to ad hoc ranking research. 
+                We examine both historical successes and modern challenges in establishing truly impactful improvements.
+            </p>
+        </div>
+
+        <div class="main-content">
+            <div class="intro-text">
+                To advance information retrieval research meaningfully, we need contributions that are both <strong>valid</strong> 
+                because we can confidently verify they represent genuine improvements, and <strong>useful</strong> because these 
+                improvements can be easily deployed across diverse real-world applications. This section establishes a framework 
+                for evaluating research contributions against these dual criteria, drawing lessons from both the successful 
+                development of BM25 in the 1990s and the current era of BERT-style neural rankers trained on MS MARCO data.
+            </div>
+
+            <div class="requirements-framework">
+                <h2 class="framework-title">The Validity and Usefulness Framework</h2>
+                
+                <div class="validity-pyramid">
+                    <div class="pyramid-level" onclick="exploreLevel('robust')">
+                        <div class="level-title">Robust Usefulness</div>
+                        <div class="level-description">
+                            Easy deployment across many real-world applications with reliable performance
+                        </div>
+                    </div>
+                    <div class="pyramid-level" onclick="exploreLevel('external')">
+                        <div class="level-title">External Validity</div>
+                        <div class="level-description">
+                            Findings hold up when data distribution changes slightly - different domains, queries, or judging schemes
+                        </div>
+                    </div>
+                    <div class="pyramid-level" onclick="exploreLevel('internal')">
+                        <div class="level-title">Internal Validity</div>
+                        <div class="level-description">
+                            Statistical and mathematical correctness - results are reliable and not due to chance or multiple testing
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="comparison-section">
+                <h2 class="comparison-title">Historical Success vs Modern Challenges</h2>
+                <div class="comparison-grid">
+                    <div class="comparison-card historical-card" onclick="exploreEra('bm25')">
+                        <div class="card-era">1990s TREC Era</div>
+                        <div class="card-title">BM25 Development</div>
+                        <ul class="card-features">
+                            <li>Small training data regime (50 query topics)</li>
+                            <li>Varied document lengths and writing styles</li>
+                            <li>Robust to document length variations</li>
+                            <li>Widely deployed in real systems</li>
+                            <li>2,420+ citations for "Okapi at TREC-3"</li>
+                            <li>Strong external validity across domains</li>
+                        </ul>
+                    </div>
+                    <div class="comparison-card modern-card" onclick="exploreEra('bert')">
+                        <div class="card-era">2019+ MS MARCO Era</div>
+                        <div class="card-title">BERT-style Rankers</div>
+                        <ul class="card-features">
+                            <li>Large training data regime (100K+ queries)</li>
+                            <li>Hundreds of thousands of training examples</li>
+                            <li>Dramatic effectiveness improvements</li>
+                            <li>Computational complexity challenges</li>
+                            <li>Deployment requires significant expertise</li>
+                            <li>External validity still being established</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="challenges-section">
+                <h2 class="challenges-title">Current Research Challenges</h2>
+                <div class="challenges-grid">
+                    <div class="challenge-card" onclick="exploreChallenge('multiple')">
+                        <span class="challenge-icon">🔄</span>
+                        <div class="challenge-title">Multiple Testing</div>
+                        <div class="challenge-description">
+                            Public leaderboards allow repeated submissions, risking overfitting to test sets through statistical fishing
+                        </div>
+                    </div>
+                    
+                    <div class="challenge-card" onclick="exploreChallenge('metrics')">
+                        <span class="challenge-icon">📏</span>
+                        <div class="challenge-title">IR Metrics Scale</div>
+                        <div class="challenge-description">
+                            Questions about whether metrics like MRR and NDCG are on interval scales, affecting statistical validity
+                        </div>
+                    </div>
+                    
+                    <div class="challenge-card" onclick="exploreChallenge('deployment')">
+                        <span class="challenge-icon">🚀</span>
+                        <div class="challenge-title">Deployment Gap</div>
+                        <div class="challenge-description">
+                            Neural rankers require PhD-level expertise for tuning and deployment, limiting practical adoption
+                        </div>
+                    </div>
+                    
+                    <div class="challenge-card" onclick="exploreChallenge('generalization')">
+                        <span class="challenge-icon">🌐</span>
+                        <div class="challenge-title">Domain Transfer</div>
+                        <div class="challenge-description">
+                            Unclear if improvements on MS MARCO generalize to other domains without extensive retraining
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="key-questions">
+                <h2 class="questions-title">Critical Research Questions</h2>
+                
+                <div class="question-item" onclick="exploreQuestion('sota')">
+                    <div class="question-text">Is the "SOTA" progress meaningful?</div>
+                    <div class="question-context">
+                        Are leaderboard improvements representing genuine advances or just metric optimization?
+                    </div>
+                </div>
+                
+                <div class="question-item" onclick="exploreQuestion('mrr')">
+                    <div class="question-text">Is MRR a good metric for evaluation?</div>
+                    <div class="question-context">
+                        Questions about interval scales and whether means of IR metrics are statistically valid
+                    </div>
+                </div>
+                
+                <div class="question-item" onclick="exploreQuestion('tied')">
+                    <div class="question-text">Are all top runs effectively tied?</div>
+                    <div class="question-context">
+                        Has the leaderboard reached saturation where differences are no longer meaningful?
+                    </div>
+                </div>
+                
+                <div class="question-item" onclick="exploreQuestion('overfitting')">
+                    <div class="question-text">Are we seeing multiple submission overfitting?</div>
+                    <div class="question-context">
+                        Do teams benefit unfairly from repeated submissions and parameter tuning on test sets?
+                    </div>
+                </div>
+                
+                <div class="question-item" onclick="exploreQuestion('external')">
+                    <div class="question-text">Do findings hold with slight data changes?</div>
+                    <div class="question-context">
+                        Testing external validity through TREC Deep Learning Track with different judging schemes
+                    </div>
+                </div>
+                
+                <div class="question-item" onclick="exploreQuestion('playbook')">
+                    <div class="question-text">Is there a standard deployment playbook?</div>
+                    <div class="question-context">
+                        Can these techniques be easily deployed without requiring specialized expertise?
+                    </div>
+                </div>
+            </div>
+
+            <div class="interactive-summary">
+                <h2 class="summary-title">The Path Forward</h2>
+                <p style="font-size: 1.2rem; line-height: 1.6; margin-bottom: 30px;">
+                    This section establishes the foundation for rigorous evaluation of IR advances. 
+                    The goal is not just better numbers on leaderboards, but techniques that work reliably 
+                    across diverse real-world scenarios with minimal deployment friction.
+                </p>
+                
+                <div class="cta-buttons">
+                    <button class="cta-button" onclick="navigateToSection('bm25-analysis')">🏛️ BM25 Case Study</button>
+                    <button class="cta-button" onclick="navigateToSection('bert-analysis')">🧠 BERT Analysis</button>
+                    <button class="cta-button" onclick="navigateToSection('validity-tests')">🔬 Validity Testing</button>
+                    <button class="cta-button" onclick="navigateToSection('future-work')">🔮 Future Research</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Explore pyramid levels
+        function exploreLevel(level) {
+            const details = {
+                'internal': 'Internal validity focuses on statistical correctness within the study. Key concerns include proper statistical testing, avoiding multiple comparisons problems, and ensuring results are not due to chance. Issues include underpowered studies and selective result reporting.',
+                'external': 'External validity tests whether findings generalize beyond the specific experimental setup. This includes testing on different document collections, query types, and relevance judging schemes. BM25 showed strong external validity across many domains.',
+                'robust': 'Robust usefulness means techniques work reliably in practice with minimal tuning. BM25 exemplifies this - it has few parameters, performs well even without tuning, and can be deployed without PhD-level expertise. Modern neural rankers struggle with this requirement.'
+            };
+            alert(details[level]);
+        }
+
+        // Explore historical eras
+        function exploreEra(era) {
+            const info = {
+                'bm25': 'BM25 development in the 1990s represents the gold standard for IR research impact. Developed using TREC data with only 50 query topics, it handled document length variation better than predecessors. Today it has 2,420+ citations and is widely deployed in commercial systems. It achieved all three levels: internal validity through proper evaluation, external validity across domains, and robust usefulness through easy deployment.',
+                'bert': 'BERT-style rankers trained on MS MARCO show dramatic effectiveness improvements but face deployment challenges. They require hundreds of thousands of training examples, significant computational resources, and expert-level tuning. While they achieve strong internal validity on MS MARCO, external validity and robust usefulness remain challenging - requiring multi-stage fine-tuning for new domains.'
+            };
+            alert(info[era]);
+        }
+
+        // Explore specific challenges
+        function exploreChallenge(challenge) {
+            const details = {
+                'multiple': 'Multiple testing occurs when researchers try many variations on the same test set, increasing the chance of false positives. Public leaderboards exacerbate this by allowing repeated submissions. MS MARCO mitigates this through submission limits (2 per month) and public tracking of all submissions, but the problem persists.',
+                'metrics': 'IR metrics like MRR and NDCG may not be on interval scales, making statistical tests on their means potentially invalid. This theoretical concern could affect the reliability of leaderboard rankings and significance testing. The paper analyzes this through bootstrapping and alternative statistical tests.',
+                'deployment': 'Neural rankers require significant expertise to deploy effectively - PhD-level knowledge of fine-tuning, domain adaptation, and hyperparameter optimization. This contrasts with BM25, which works well with default parameters. The deployment gap limits real-world adoption outside major tech companies.',
+                'generalization': 'Models trained on MS MARCO may not generalize well to other domains without extensive retraining. This raises questions about whether the improvements represent general advances in IR or specific optimizations for the MS MARCO data distribution. Transfer learning experiments show mixed results.'
+            };
+            alert(details[challenge]);
+        }
+
+        // Explore research questions
+        function exploreQuestion(question) {
+            const answers = {
+                'sota': 'The paper questions whether leaderboard progress represents meaningful advances. Are models developing better understanding of relevance, or just optimizing for specific metrics and test sets? True progress should improve user experience across diverse scenarios.',
+                'mrr': 'Mean Reciprocal Rank (MRR) may not be on an interval scale, potentially invalidating common statistical practices. The paper analyzes this through multiple statistical tests and finds that practical reliability remains high despite theoretical concerns.',
+                'tied': 'Bootstrap analysis reveals that top-ranked runs are statistically distinguishable, not tied. The first-ranked run never drops below position 3 in 1000 bootstrap trials, indicating meaningful differences exist at the top of leaderboards.',
+                'overfitting': 'MS MARCO limits submissions to 2 per month per group and tracks all submissions publicly. However, cross-group learning and shared code may still lead to collective overfitting. Private leaderboard analysis helps detect this issue.',
+                'external': 'External validity testing through TREC Deep Learning Track uses different query selection and 4-point relevance scales. Results show that MS MARCO improvements generally transfer, though with some variation in relative rankings between systems.',
+                'playbook': 'Currently, no standard deployment playbook exists for neural rankers. Unlike BM25, they require domain-specific data, multi-stage fine-tuning, and expert tuning. Future work should focus on developing self-tuning rankers and general-purpose models.'
+            };
+            alert(answers[question]);
+        }
+
+        // Navigate to sections
+        function navigateToSection(section) {
+            const messages = {
+                'bm25-analysis': 'Section 2.1 provides detailed analysis of BM25 development, showing how it achieved internal validity, external validity, and robust usefulness through TREC evaluation.',
+                'bert-analysis': 'Section 2.2 examines BERT-style rankers on MS MARCO, analyzing their progress against the same validity and usefulness criteria established for BM25.',
+                'validity-tests': 'Section 3 presents comprehensive validity analysis including bootstrapping, private leaderboard experiments, and multiple statistical testing approaches.',
+                'future-work': 'Later sections discuss the path toward robust usefulness, including transfer learning, deployment challenges, and research directions for making neural IR techniques more practically viable.'
+            };
+            alert(messages[section]);
+        }
+
+        // Progress bar animation
+        window.addEventListener('scroll', () => {
+            const scrollTop = document.documentElement.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const progress = (scrollTop / scrollHeight) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+        });
+
+        // Animate elements on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationDelay = Math.random() * 0.5 + 's';
+                    entry.target.style.animationPlayState = 'running';
+                }
+            });
+        });
+
+        document.querySelectorAll('.pyramid-level, .comparison-card, .challenge-card, .question-item').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Add subtle animations to interactive elements
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add hover sound effect simulation
+            document.querySelectorAll('.pyramid-level, .challenge-card, .question-item').forEach(el => {
+                el.addEventListener('mouseenter', function() {
+                    this.style.animationDuration = '0.3s';
+                    this.style.animationName = 'pulse';
+                    this.style.animationIterationCount = '1';
+                });
+                
+                el.addEventListener('animationend', function() {
+                    this.style.animationName = '';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
